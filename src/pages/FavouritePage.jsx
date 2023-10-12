@@ -3,7 +3,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebaseConfig";
  
 
-export default function HomePage() {
+export default function FavouritePage() {
 
   const [data, setData] = useState([]);
 
@@ -49,15 +49,17 @@ export default function HomePage() {
     <div className="page">
        <ul style={{"display" : "flex","flexDirection" : "column" }}> 
         {data.map((item) => (
-          <li key={item.id} style={{ "listStyleType": "none" }}>
+          <div key={item.id}>
             {favoritListe.includes(item.id) ?
+                (<li style={{ "listStyleType": "none" }}>
                 <input type="checkbox" defaultChecked={true} data-id={item.id} onChange={haandterFavorit} style={{"display" : "inline-block" }} />
-                :
-                <input type="checkbox" defaultChecked={false} data-id={item.id} onChange={haandterFavorit} style={{"display" : "inline-block" }} />
+                <span style={{ "marginRight": "10px" }}>{item.vare}</span>
+                <span style={{ "marginRight": "10px" }}>{item.pris}</span>
+                </li>
+                ) :
+                console.log("Vare ikke på favoritlisten.")
             }
-            <span style={{ "marginRight": "10px" }}>{item.vare}</span>
-            <span style={{ "marginRight": "10px" }}>{item.pris}</span>
-          </li>
+          </div>
         ))}
       </ul>
     </div>
